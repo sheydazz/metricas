@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { BarChart, Activity, Code, ArrowLeft, CheckCircle, RefreshCw, Calendar, Users } from 'lucide-react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function MetricaLOC() {
   const router=useRouter()
