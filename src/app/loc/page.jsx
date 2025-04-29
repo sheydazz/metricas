@@ -1,8 +1,10 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { BarChart, Activity, Code, ArrowLeft, CheckCircle, RefreshCw, Calendar, Users } from 'lucide-react';
+import { useRouter } from 'next/router';
 
 export default function MetricaLOC() {
+  const router=useRouter()
   // Estados para los inputs de LOC
   const [totalLOC, setTotalLOC] = useState("");
   const [numDesarrolladores, setNumDesarrolladores] = useState("");
@@ -98,9 +100,9 @@ export default function MetricaLOC() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
-            <button className="mr-4 bg-white/10 p-2 rounded-full">
+            <button onClick={() => router.push('/')} className="mr-4 bg-white/10 p-2 rounded-full">
               <ArrowLeft className="text-white" size={24} />
-            </button>
+            </button >
             <h1 className="text-3xl font-bold text-white">Métricas LOC</h1>
           </div>
           <div className="flex items-center gap-3">
