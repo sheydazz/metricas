@@ -69,7 +69,7 @@ export default function MetricaPOO() {
             />
           </div>
           <h2 className="text-white text-2xl font-bold"> Frecuencia de cambio por módulo  </h2>
-          <p className="text-blue-200 group-hover:text-blue-100 mt-2">CBO</p>
+          <p className="text-blue-200 group-hover:text-blue-100 mt-2"></p>
         </button>
          {/* Botón Maintainability Index (MI) –*/}
          <button

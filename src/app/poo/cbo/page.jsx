@@ -8,20 +8,10 @@ export default function CBOCalculator() {
   const router = useRouter();
   const [className, setClassName] = useState("");
   const [coupledClasses, setCoupledClasses] = useState([]);
-  const [newClass, setNewClass] = useState("");
   const [result, setResult] = useState(null);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [cbo, setCbo] = useState(0);
 
-  const addCoupledClass = () => {
-    if (newClass.trim() && !coupledClasses.includes(newClass.trim())) {
-      setCoupledClasses([...coupledClasses, newClass.trim()]);
-      setNewClass("");
-    }
-  };
-
-  const removeCoupledClass = (classToRemove) => {
-    setCoupledClasses(coupledClasses.filter(cls => cls !== classToRemove));
-  };
 
   const calculateCBO = () => {
     if (!className.trim()) {
@@ -29,7 +19,7 @@ export default function CBOCalculator() {
       return;
     }
 
-    const CBO = coupledClasses.length;
+    const CBO = cbo
     setResult({ className: className.trim(), CBO, coupledClasses: [...coupledClasses] });
   };
 
@@ -225,43 +215,17 @@ export default function CBOCalculator() {
               </label>
               <div className="flex gap-2">
                 <input
-                  type="text"
-                  value={newClass}
-                  onChange={(e) => setNewClass(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && addCoupledClass()}
+                  type="number"
+                  value={cbo}
+                  onChange={(e) => setCbo(e.target.value)}
                   className="flex-1 bg-white/10 border border-green-300/30 rounded-lg px-4 py-3 text-white placeholder-green-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/50"
                   placeholder="Nombre de clase acoplada"
                 />
-                <button
-                  onClick={addCoupledClass}
-                  className="bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg transition-colors"
-                >
-                  <Plus size={20} />
-                </button>
+               
               </div>
             </div>
 
-            {/* Lista de clases acopladas */}
-            {coupledClasses.length > 0 && (
-              <div className="bg-green-900/30 rounded-lg p-4">
-                <h3 className="font-bold text-white mb-3">
-                  Clases acopladas ({coupledClasses.length})
-                </h3>
-                <div className="space-y-2">
-                  {coupledClasses.map((cls, index) => (
-                    <div key={index} className="flex items-center justify-between bg-white/10 rounded-lg px-3 py-2">
-                      <span className="text-green-100">{cls}</span>
-                      <button
-                        onClick={() => removeCoupledClass(cls)}
-                        className="text-red-400 hover:text-red-300 transition-colors"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+           
 
             {/* Botones */}
             <div className="flex gap-3">
@@ -292,7 +256,7 @@ export default function CBOCalculator() {
                   </div>
                   <div className="flex justify-between text-green-100">
                     <span>Clases externas acopladas:</span>
-                    <span className="font-mono">{result.coupledClasses.length}</span>
+                    <span className="font-mono">{cbo}</span>
                   </div>
                   <div className="border-t border-green-400/30 pt-3">
                     <div className="flex justify-between items-center">
@@ -302,19 +266,7 @@ export default function CBOCalculator() {
                   </div>
                 </div>
 
-                {/* Lista de clases acopladas */}
-                {result.coupledClasses.length > 0 && (
-                  <div className="mb-4 p-3 bg-green-900/30 rounded-lg">
-                    <h4 className="font-bold text-white mb-2">Clases acopladas:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {result.coupledClasses.map((cls, index) => (
-                        <span key={index} className="bg-green-600/30 text-green-200 px-2 py-1 rounded text-sm">
-                          {cls}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
+               
 
                 {/* Interpretación */}
                 <div className={`${getCouplingLevel(result.CBO).bg} rounded-lg p-4`}>
